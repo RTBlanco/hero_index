@@ -11,25 +11,11 @@ class HeroIndex::CLI
       input = gets.strip.downcase
 
       case input
+
       when "id"
-        puts "looks with id"
-        # Will call the api and look for the user 
-        puts " " 
-
+        look_id
       when "name"
-        puts "looking with name"
-        puts " "
-        puts "please enter the name:"
-        name = gets.strip.downcase
-
-        if hero = HeroIndex::API.get_hero(name)
-          binding.pry
-          puts "found #{hero.name}"
-          hero_informaton(hero)
-        else
-          puts "user not found"
-        end
-
+        look_name
       else
         puts "wtf are you talking about ?"
         puts " "
@@ -43,5 +29,40 @@ class HeroIndex::CLI
     input = gets.strip.downcase
     puts input
   end
+
+  def look_name
+    puts "looking with name"
+    puts " "
+    puts "please enter the name:"
+    
+    name = gets.strip.downcase
+
+    if hero = HeroIndex::API.get_hero(name)
+      puts "found #{hero.name}"
+      hero_informaton(hero)
+    else
+      puts "user not found"
+    end
+  end
+
+  def look_id
+    puts "looking with ID"
+    puts " "
+    puts "please enter ID"
+
+    id = 0
+    while id.to_i == 0
+      puts "must be a numer"
+      id = gets.strip
+    end
+
+    if hero = HeroIndex::API.get_hero(id)
+      puts "found #{hero.name}"
+      hero_informaton(hero)
+    else
+      puts "user not found"
+    end
+  end
+   
 
 end
