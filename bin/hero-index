@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require './lib/hero_index'
 
-HeroIndex::CLI.new.call
+HeroIndex::CLI.new.hero_call

@@ -11,6 +11,8 @@ class HeroIndex::Hero
     @@all << self
   end
 
-  
+  def versus(hero)
+
+  end
 
 end

@@ -1,10 +1,6 @@
 class HeroIndex::CLI
 
-  def call
-    self.hero_lookup
-  end
-
-  def hero_lookup
+  def hero_call
     input = nil 
     while input != "exit"
       puts "Search Hero by name or hero ID"
@@ -25,7 +21,7 @@ class HeroIndex::CLI
 
   def hero_informaton(hero)
     puts "what would you like know about #{hero.name}"
-    # here goes method commands 
+    # ask for what you want to know about the hero  
     input = gets.strip.downcase
     puts input
   end
@@ -57,12 +53,14 @@ class HeroIndex::CLI
     end
 
     if hero = HeroIndex::API.get_hero(id)
+      binding.pry
       puts "found #{hero.name}"
       hero_informaton(hero)
     else
       puts "user not found"
     end
   end
-   
+
+  
 
 end

@@ -27,4 +27,3 @@ class HeroIndex::API
  
 end
 
-# HeroIndex::API.get_hero("???")

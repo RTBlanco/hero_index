@@ -12,3 +12,4 @@ require "hero_index"
 
 require "irb"
 IRB.start(__FILE__)
+
