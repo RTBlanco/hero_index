@@ -2,37 +2,40 @@ class HeroIndex::CLI
 
   def hero_call
     run = true 
-    while loop
-      puts "Search Hero by name or hero ID"
+    while run == true
+      puts "Search Hero by name or hero ID".colorize(:yellow)
       input = gets.strip.downcase
 
       case input
-
       when "id"
         look_id
+        run = false
       when "name"
         look_name
-
-      when "exit" || "quit"
+        run = false
+      when "exit"
         run = false
       else
-        puts "wtf are you talking about ?"
+        puts "Sorry don't understand".colorize(:yellow)
         puts " "
       end
     end 
   end
 
   def hero_informaton(hero)
-    puts "what would you like know about #{hero.name}"
-    puts <<-Doc..gsub /^\s*/, ''
+    puts "what would you like know about #{hero.name.colorize(:green)}".colorize(:yellow)
+    puts <<-Doc
       (1) main information 
       (2) physical traits
       (3) Power levels
-      (5) Who is stonger (pits current hero verser another)
+      (4) Who is stonger (pits current hero verser another)
+      -----------------------------------------------------
+      (back) To go back 
+      (quit) To quit program
     Doc
-    input = nil
-    while input != "exit"
-      input = gets.strip
+    run = true 
+    while run == true
+      input = gets.strip.downcase
 
       case input
       when "1"
@@ -43,49 +46,55 @@ class HeroIndex::CLI
         # list_powerstats
       when "4"
         # versus
+      when "back"
+        hero_call
+        run = false
+      when "quit"
+        exit!
       else
-        puts "Not a Valid option"
+        puts "Not a Valid option".colorize(:red)
       end
     end
   end
 
-  end
+
 
   def look_name
-    puts "looking with name"
+    puts "looking with name".colorize(:yellow)
     puts " "
-    puts "please enter the name:"
+    puts "please enter the name:".colorize(:yellow)
     
-    name = gets.strip.downcase
+    # name = nil
+    while true 
+      name = gets.strip.downcase
 
-    if hero = HeroIndex::API.get_hero(name)
-      puts "found #{hero.name}"
-      hero_informaton(hero)
-    else
-      puts "user not found"
+      if hero = HeroIndex::API.get_hero(name)
+        puts "found #{hero.name}"
+        hero_informaton(hero)
+        break
+      else
+        puts "user not found, Try again".colorize(:red)
+      end
     end
   end
 
   def look_id
-    puts "looking with ID"
+    puts "looking with ID".colorize(:yellow)
     puts " "
-    puts "please enter ID"
+    puts "please enter ID".colorize(:yellow)
 
-    id = 0
-    while id.to_i == 0
-      puts "must be a numer"
+    id = nil
+    while id.to_i == 0 || id.to_i > 731
+      puts "must be a numer".colorize(:red)
       id = gets.strip
     end
 
     if hero = HeroIndex::API.get_hero(id)
-      binding.pry
-      puts "found #{hero.name}"
+      puts "found ".colorize(:yellow) + hero.name.colorize(:green)
       hero_informaton(hero)
     else
-      puts "user not found"
+      puts "user not found".colorize(:red)
     end
   end
-
-  
 
 end

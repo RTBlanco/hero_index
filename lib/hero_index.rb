@@ -3,6 +3,7 @@ require 'net/http'
 require "json"
 require "awesome_print"
 require "pry"
+require "colorize"
 
 require_relative "hero_index/version"
 require_relative "hero_index/cli"
