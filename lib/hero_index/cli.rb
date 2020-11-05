@@ -16,15 +16,15 @@ class HeroIndex::CLI
       when "exit"
         run = false
       else
-        puts "Sorry don't understand".colorize(:yellow)
+        puts "Sorry don't understand".colorize(:red)
         puts " "
       end
     end 
   end
 
   def hero_informaton(hero)
-    puts "what would you like know about #{hero.name.colorize(:green)}".colorize(:yellow)
-    puts <<-Doc
+    puts "what would you like know about ".colorize(:yellow) + hero.name.colorize(:green)
+    puts <<-DOC.colorize(:green)
       (1) main information 
       (2) physical traits
       (3) Power levels
@@ -32,7 +32,7 @@ class HeroIndex::CLI
       -----------------------------------------------------
       (back) To go back 
       (quit) To quit program
-    Doc
+    DOC
     run = true 
     while run == true
       input = gets.strip.downcase
@@ -66,7 +66,9 @@ class HeroIndex::CLI
     
     # name = nil
     while true 
-      name = gets.strip.downcase
+      name = gets.strip
+
+      # if name.split(" ").count >= 2 
 
       if hero = HeroIndex::API.get_hero(name)
         puts "found #{hero.name}"
@@ -84,9 +86,11 @@ class HeroIndex::CLI
     puts "please enter ID".colorize(:yellow)
 
     id = nil
+    amount = 0 
     while id.to_i == 0 || id.to_i > 731
-      puts "must be a numer".colorize(:red)
+      puts amount == 0 ? "must be a numer".colorize(:yellow) : "must be a numer".colorize(:red)
       id = gets.strip
+      amount += 1
     end
 
     if hero = HeroIndex::API.get_hero(id)
