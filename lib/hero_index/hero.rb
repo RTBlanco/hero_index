@@ -19,9 +19,19 @@ class HeroIndex::Hero
   end
 
   def powerstats=(powerstats)
-    binding.pry
     @powerstats = powerstats.each {|k,v| powerstats[k] = v.to_i }
   end
 
+  def self.all
+    @@all
+  end
+
+  def self.find_by_name(name)
+    self.all.find {|hero| hero.name == name}
+  end
+
+  def self.find_by_ID(id)
+    self.all.find {|hero| hero.id == id}
+  end
 end
 
