@@ -1,8 +1,8 @@
 class HeroIndex::CLI
 
   def hero_call
-    input = nil 
-    while input != "exit"
+    run = true 
+    while loop
       puts "Search Hero by name or hero ID"
       input = gets.strip.downcase
 
@@ -12,6 +12,9 @@ class HeroIndex::CLI
         look_id
       when "name"
         look_name
+
+      when "exit" || "quit"
+        run = false
       else
         puts "wtf are you talking about ?"
         puts " "
@@ -29,7 +32,7 @@ class HeroIndex::CLI
     Doc
     input = nil
     while input != "exit"
-      input = gets.strip.downcase
+      input = gets.strip
 
       case input
       when "1"
