@@ -13,7 +13,7 @@ class HeroIndex::API
 
     response = Net::HTTP.get_response(uri)
     hero_info = JSON.parse(response.body)
-
+    
     if hero_info.include?("results") # check if response used search or ID 
       unless hero_info["response"] == "error"
         HeroIndex::Hero.new(hero_info["results"][0])

@@ -1,5 +1,10 @@
 class HeroIndex::CLI
 
+  def run
+    hero = hero_call
+    hero_informaton(hero)
+  end
+
   def hero_call
     run = true 
     while run == true
@@ -8,11 +13,15 @@ class HeroIndex::CLI
 
       case input
       when "id"
-        look_id
         run = false
+        # hero = look_name
+        # hero_informaton(hero)
+        return look_id
       when "name"
-        look_name
         run = false
+        # hero = look_name
+        # hero_informaton(hero)
+        return look_name
       when "exit"
         run = false
       else
@@ -24,7 +33,7 @@ class HeroIndex::CLI
 
   def hero_informaton(hero)
     puts "what would you like know about ".colorize(:yellow) + hero.name.colorize(:green)
-    puts <<-DOC.colorize(:green)
+    puts <<-DOC.colorize(:yellow)
       (1) main information 
       (2) physical traits
       (3) Power levels
@@ -33,8 +42,8 @@ class HeroIndex::CLI
       (back) To go back 
       (quit) To quit program
     DOC
-    run = true 
-    while run == true
+    running = true 
+    while running == true
       input = gets.strip.downcase
 
       case input
@@ -45,10 +54,10 @@ class HeroIndex::CLI
       when "3"
         # list_powerstats
       when "4"
-        # versus
+        versus(hero)
       when "back"
-        hero_call
-        run = false
+        run
+        running = false
       when "quit"
         exit!
       else
@@ -68,11 +77,10 @@ class HeroIndex::CLI
     while true 
       name = gets.strip
 
-      # if name.split(" ").count >= 2 
-
       if hero = HeroIndex::API.get_hero(name)
         puts "found #{hero.name}"
-        hero_informaton(hero)
+        # hero_informaton(hero) # might use yeild
+        return hero
         break
       else
         puts "user not found, Try again".colorize(:red)
@@ -95,10 +103,28 @@ class HeroIndex::CLI
 
     if hero = HeroIndex::API.get_hero(id)
       puts "found ".colorize(:yellow) + hero.name.colorize(:green)
-      hero_informaton(hero)
+       # hero_informaton(hero) # might use yeild
+      return hero
     else
       puts "user not found".colorize(:red)
     end
   end
 
+  def versus(hero)
+    puts""
+    puts "Pit hero against a".colorize(:yellow) +" new".colorize(:green) +" hero or the ".colorize(:yellow) + "last ".colorize(:green)+ "searched hero?".colorize(:yellow)
+    input = gets.strip.downcase
+    # Loop this 
+    case input
+    when "new"
+      hero2 = hero_call
+    when "last"
+      hero2 = HeroIndex::Hero.last_searched_hero
+    end
+    
+    puts hero.name.colorize(:green) + " vs " + hero2.name.colorize(:green)
+    hero.is_stronger?(hero2) ? (puts hero.name.colorize(:green) + " is stronger".colorize(:yellow)) : (puts hero.name.colorize(:green) + " is stronger".colorize(:yellow))
+    puts ""
+    hero_informaton(hero)
+  end
 end
