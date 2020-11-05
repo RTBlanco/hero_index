@@ -21,9 +21,31 @@ class HeroIndex::CLI
 
   def hero_informaton(hero)
     puts "what would you like know about #{hero.name}"
-    # ask for what you want to know about the hero  
-    input = gets.strip.downcase
-    puts input
+    puts <<-Doc..gsub /^\s*/, ''
+      (1) main information 
+      (2) physical traits
+      (3) Power levels
+      (5) Who is stonger (pits current hero verser another)
+    Doc
+    input = nil
+    while input != "exit"
+      input = gets.strip.downcase
+
+      case input
+      when "1"
+        # main_info
+      when "2"
+        # physical
+      when "3"
+        # list_powerstats
+      when "4"
+        # versus
+      else
+        puts "Not a Valid option"
+      end
+    end
+  end
+
   end
 
   def look_name
