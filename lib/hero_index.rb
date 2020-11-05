@@ -16,6 +16,6 @@ require_relative "hero_index/api"
 #   # Your code goes here...
 # end
 
-test = HeroIndex::API.get_hero("70")
-test.powerstats
-binding.pry
+# test = HeroIndex::API.get_hero("70")
+# test.powerstats
+# binding.pry
