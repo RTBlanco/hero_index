@@ -41,7 +41,7 @@ class HeroIndex::CLI
       -----------------------------------------------------
       (back) To go back 
       (quit) To quit program
-    DOC
+      DOC
     running = true 
     while running == true
       input = gets.strip.downcase
@@ -52,7 +52,7 @@ class HeroIndex::CLI
       when "2"
         # physical
       when "3"
-        # list_powerstats
+        show_pwr_lvls(hero)
       when "4"
         versus(hero)
       when "back"
@@ -113,18 +113,55 @@ class HeroIndex::CLI
   def versus(hero)
     puts""
     puts "Pit hero against a".colorize(:yellow) +" new".colorize(:green) +" hero or the ".colorize(:yellow) + "last ".colorize(:green)+ "searched hero?".colorize(:yellow)
-    input = gets.strip.downcase
-    # Loop this 
-    case input
-    when "new"
-      hero2 = hero_call
-    when "last"
-      hero2 = HeroIndex::Hero.last_searched_hero
+    # running = true 
+    while true #running == true
+      input = gets.strip.downcase 
+      case input
+      when "new"
+        hero2 = hero_call
+        break
+      when "last"
+        hero2 = HeroIndex::Hero.last_searched_hero
+        break
+      else
+        puts "Enter ".colorize(:yellow) + '"name" '.colorize(:green) + "or ".colorize(:yellow) + ' "new"'.colorize(:green)
+      end
     end
     
     puts hero.name.colorize(:green) + " vs " + hero2.name.colorize(:green)
-    hero.is_stronger?(hero2) ? (puts hero.name.colorize(:green) + " is stronger".colorize(:yellow)) : (puts hero.name.colorize(:green) + " is stronger".colorize(:yellow))
+    hero.is_stronger?(hero2) ? (puts hero.name.colorize(:green) + " is stronger".colorize(:yellow)) : (puts hero2.name.colorize(:green) + " is stronger".colorize(:yellow))
     puts ""
     hero_informaton(hero)
+  end
+
+  def show_pwr_lvls(hero)
+    hero.powerstats.each do |k, v|
+      puts "#{k}: " + v.to_s.colorize(:green)
+    end
+    puts <<-DOC.gsub /^\s+/, ""
+      
+      -----------------------------------------------------
+    DOC
+    hero_informaton(hero)
+  end    
+
+  def back_or_quit
+    puts <<-DOC.colorize(:yellow)
+    -----------------------------------------------------
+    (back) To go back 
+    (quit) To quit program
+    DOC
+    
+    input = gets.strip.downcase
+
+    case input 
+    when "back"
+      run
+      # break # running = false
+    when "quit"
+      exit!
+    else
+      back_or_quit
+    end
   end
 end

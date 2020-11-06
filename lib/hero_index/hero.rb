@@ -15,7 +15,7 @@ class HeroIndex::Hero
   end
 
   def is_stronger?(hero)
-    @powerstats > hero.powerstats
+    self.powerstats > hero.powerstats
   end
 
   def powerstats=(powerstats)
