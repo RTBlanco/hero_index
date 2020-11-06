@@ -6,24 +6,24 @@ class HeroIndex::CLI
   end
 
   def hero_call
-    run = true 
-    while run == true
+    # run = true 
+    while true#run == true
       puts "Search Hero by name or hero ID".colorize(:yellow)
       input = gets.strip.downcase
 
       case input
       when "id"
-        run = false
-        # hero = look_name
-        # hero_informaton(hero)
         return look_id
-      when "name"
-        run = false
+        break# run = false
         # hero = look_name
         # hero_informaton(hero)
+      when "name"
         return look_name
+        break #run = false
+        # hero = look_name
+        # hero_informaton(hero)
       when "exit"
-        run = false
+        exit!
       else
         puts "Sorry don't understand".colorize(:red)
         puts " "
@@ -78,7 +78,8 @@ class HeroIndex::CLI
       name = gets.strip
 
       if hero = HeroIndex::API.get_hero(name)
-        puts "found #{hero.name}"
+        puts " " 
+        puts "found ".colorize(:yellow) + hero.name.colorize(:green)
         # hero_informaton(hero) # might use yeild
         return hero
         break
@@ -102,6 +103,7 @@ class HeroIndex::CLI
     end
 
     if hero = HeroIndex::API.get_hero(id)
+      puts " " 
       puts "found ".colorize(:yellow) + hero.name.colorize(:green)
        # hero_informaton(hero) # might use yeild
       return hero
@@ -142,7 +144,8 @@ class HeroIndex::CLI
       
       -----------------------------------------------------
     DOC
-    hero_informaton(hero)
+    # hero_informaton(hero)
+    back_or_quit {hero_informaton(hero)}
   end    
 
   def back_or_quit
@@ -156,7 +159,7 @@ class HeroIndex::CLI
 
     case input 
     when "back"
-      run
+      yield
       # break # running = false
     when "quit"
       exit!

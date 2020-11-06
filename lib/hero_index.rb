@@ -1,7 +1,6 @@
 require "open-uri"
 require 'net/http'
 require "json"
-require "awesome_print"
 require "pry"
 require "colorize"
 
