@@ -44,17 +44,8 @@ class HeroIndex::Hero
     pronouns = self.appearance["gender"] == "Male" ? posibile_pronouns[0] : posibile_pronouns[1]
   end
 
-
   def self.all
     @@all
-  end
-
-  def self.find_by_name(name)
-    self.all.find {|hero| hero.name == name}
-  end
-
-  def self.find_by_ID(id)
-    self.all.find {|hero| hero.id == id}
   end
 
   def self.last_searched_hero

@@ -3,7 +3,8 @@ class HeroIndex::CLI
   @@line = "-" * 55
   def run
     hero = hero_call
-    hero_informaton(hero)
+    # hero_informaton(hero)
+    back_or_quit(hero) {run}
   end
 
   def hero_call
@@ -27,11 +28,11 @@ class HeroIndex::CLI
   end
 
   def hero_informaton(hero)
-    puts "What would you like know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stonger (pits current hero verser another)\n#{@@line}\n  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
-     
+    # puts "What would you like know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stonger (pits current hero verser another)\n#{@@line}\n  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
+    back_or_quit(hero) {run}
     while true
       input = gets.strip.downcase
-      
+
       case input
       when "1"
         main_info(hero)
@@ -76,7 +77,7 @@ class HeroIndex::CLI
     id = nil
     amount = 0 
     while id.to_i == 0 || id.to_i > 731
-      puts amount == 0 ? "Must be a numer.\n".colorize(:yellow) : "Must be a numer!\n".colorize(:red)
+      puts amount == 0 ? "Must be a numer (1-731).\n".colorize(:yellow) : "Must be a numer (1-731)!\n".colorize(:red)
       id = gets.strip
       amount += 1
     end
@@ -109,7 +110,8 @@ class HeroIndex::CLI
     
     puts hero.name.colorize(:green) + " vs ".colorize(:yellow) + hero2.name.colorize(:green)
     hero.is_stronger?(hero2) ? (puts hero.name.colorize(:green) + " is stronger!\n".colorize(:yellow)) : (puts hero2.name.colorize(:green) + " is stronger!\n".colorize(:yellow))
-    hero_informaton(hero)
+    # back_or_quit(hero) {hero_informaton(hero)}
+    back_or_quit(hero) {run}
   end
 
 
@@ -120,7 +122,8 @@ class HeroIndex::CLI
       puts "  #{k.capitalize}: " + v.to_s.colorize(:green)
     end
     puts @@line.colorize(:yellow)
-    back_or_quit {hero_informaton(hero)}
+    # back_or_quit(hero) {hero_informaton(hero)}
+    back_or_quit(hero) {run}
   end  
 
   
@@ -135,7 +138,8 @@ class HeroIndex::CLI
       end
     end
     puts @@line.colorize(:yellow)
-    back_or_quit {hero_informaton(hero)}
+    # back_or_quit(hero) {hero_informaton(hero)}
+    back_or_quit(hero) {run}
   end
 
 
@@ -146,7 +150,7 @@ class HeroIndex::CLI
     
     puts "  #{hero.name}'s ".colorize(:green) + "ID is " + hero.id.colorize(:green)
     if hero.name != info["full-name"]
-      puts "  #{possessive} ".colorize(:green) + "full name is " + "#{info["full-name"]}".colorize(:green) + "."
+      puts "  #{possessive} " + "full name is " + "#{info["full-name"]}".colorize(:green) + "."
     end
     if info.include?("alter-egos")
       puts "  #{possessive} alter ego is "+ "#{info["alter-egos"]}".colorize(:green) + "."
@@ -159,19 +163,33 @@ class HeroIndex::CLI
     end
     
     puts "  #{pronoun} was published by " + "#{info["publisher"]}".colorize(:green) + "." + "\n  #{pronoun} is mostly know as a " + "#{info["alignment"]} ".colorize(:green) + "character.\n" + @@line.colorize(:yellow)
-    back_or_quit {hero_informaton(hero)}
+    # back_or_quit(hero) {hero_informaton(hero)}
+    back_or_quit(hero) {run}
   end
 
-  def back_or_quit
+  def back_or_quit(hero)
     while true
-      puts "#{@@line}\n  (".colorize(:yellow)  + "back".colorize(:green) + ") To go back \n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program\n".colorize(:yellow)
+      puts "What would you like know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stonger (pits current hero verser another)\n#{@@line}\n  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
+      # puts "#{@@line}\n  (".colorize(:yellow)  + "back".colorize(:green) + ") To go back \n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program\n".colorize(:yellow)
       input = gets.strip.downcase
       case input 
       when "back"
-        yield
+        yield #if block_given?
         break 
       when "quit"
         exit!
+      when "1"
+        main_info(hero)
+        break
+      when "2"
+        physical_traits(hero)
+        break
+      when "3"
+        show_pwr_lvls(hero)
+        break
+      when "4"
+        versus(hero)
+        break
       end
     end
   end
