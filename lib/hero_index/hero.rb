@@ -1,6 +1,6 @@
 class HeroIndex::Hero 
-  attr_accessor :appearance, :biography, :id, :name
-  attr_reader :powerstats
+  attr_accessor :biography, :id, :name
+  attr_reader :powerstats, :appearance
   
   @@all = []
   def initialize(attri)
@@ -14,14 +14,30 @@ class HeroIndex::Hero
     @@all << self
   end
 
+  
   def is_stronger?(hero)
     self.powerstats > hero.powerstats
   end
 
+  
   def powerstats=(powerstats)
     @powerstats = powerstats.each {|k,v| powerstats[k] = v.to_i }
   end
 
+  
+  def appearance=(appearance)
+    appearance.each do |k,v| 
+      if v.kind_of?(Array)
+        appearance.delete(k) if v[0].include?("-") || v[1].include?("-")
+      elsif v == "-"
+        appearance.delete(k)
+      end
+    end
+    @appearance = appearance
+    @appearance
+  end
+  
+  
   def self.all
     @@all
   end
@@ -37,6 +53,7 @@ class HeroIndex::Hero
   def self.last_searched_hero
     self.all.count >=2 ? self.all[-2] : self.all[0]
   end
+
 
 end
 

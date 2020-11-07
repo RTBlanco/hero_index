@@ -3,9 +3,9 @@ require './lib/hero_index'
 
 
 test = HeroIndex::API.get_hero("70")
-test.powerstats
+# test.powerstats
 
-test2 = HeroIndex::API.get_hero("644")
-test2.powerstats
+# test2 = HeroIndex::API.get_hero("644")
+# test2.powerstats
 binding.pry 
 HeroIndex::CLI.new.run

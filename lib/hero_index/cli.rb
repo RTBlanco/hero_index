@@ -1,5 +1,6 @@
 class HeroIndex::CLI
 
+
   def run
     hero = hero_call
     hero_informaton(hero)
@@ -22,7 +23,7 @@ class HeroIndex::CLI
         break #run = false
         # hero = look_name
         # hero_informaton(hero)
-      when "exit"
+      when "quit"
         exit!
       else
         puts "Sorry don't understand".colorize(:red)
@@ -42,22 +43,22 @@ class HeroIndex::CLI
       (back) To go back 
       (quit) To quit program
       DOC
-    running = true 
-    while running == true
+    # running = true 
+    while true #running == true
       input = gets.strip.downcase
 
       case input
       when "1"
         # main_info
       when "2"
-        # physical
+        physical_traits(hero)
       when "3"
         show_pwr_lvls(hero)
       when "4"
         versus(hero)
       when "back"
         run
-        running = false
+        break # running = false
       when "quit"
         exit!
       else
@@ -89,6 +90,7 @@ class HeroIndex::CLI
     end
   end
 
+
   def look_id
     puts "looking with ID".colorize(:yellow)
     puts " "
@@ -112,6 +114,7 @@ class HeroIndex::CLI
     end
   end
 
+
   def versus(hero)
     puts""
     puts "Pit hero against a".colorize(:yellow) +" new".colorize(:green) +" hero or the ".colorize(:yellow) + "last ".colorize(:green)+ "searched hero?".colorize(:yellow)
@@ -126,15 +129,16 @@ class HeroIndex::CLI
         hero2 = HeroIndex::Hero.last_searched_hero
         break
       else
-        puts "Enter ".colorize(:yellow) + '"name" '.colorize(:green) + "or ".colorize(:yellow) + ' "new"'.colorize(:green)
+        puts "Enter ".colorize(:yellow) + '"last" '.colorize(:green) + "or ".colorize(:yellow) + ' "new"'.colorize(:green)
       end
     end
     
-    puts hero.name.colorize(:green) + " vs " + hero2.name.colorize(:green)
+    puts hero.name.colorize(:green) + " vs ".colorize(:yellow) + hero2.name.colorize(:green)
     hero.is_stronger?(hero2) ? (puts hero.name.colorize(:green) + " is stronger".colorize(:yellow)) : (puts hero2.name.colorize(:green) + " is stronger".colorize(:yellow))
     puts ""
     hero_informaton(hero)
   end
+
 
   def show_pwr_lvls(hero)
     hero.powerstats.each do |k, v|
@@ -146,25 +150,41 @@ class HeroIndex::CLI
     DOC
     # hero_informaton(hero)
     back_or_quit {hero_informaton(hero)}
-  end    
+  end  
+
+  
+  def physical_traits(hero)
+    hero.appearance.each do |k , v|
+      if v.kind_of?(Array)
+        # binding.pry
+        puts "#{k}: #{v[0]} or #{v[1]}"
+      else
+        puts "#{k}: #{v}"
+      end
+    end
+    puts "-----------------------------------------------------"
+    back_or_quit {hero_informaton(hero)}
+  end
+
 
   def back_or_quit
-    puts <<-DOC.colorize(:yellow)
-    -----------------------------------------------------
-    (back) To go back 
-    (quit) To quit program
-    DOC
-    
-    input = gets.strip.downcase
+    while true
+      puts <<-DOC.colorize(:yellow).gsub /^\s+/, ""
+      -----------------------------------------------------
+          (back) To go back 
+          (quit) To quit program
+      DOC
+      
+      input = gets.strip.downcase
 
-    case input 
-    when "back"
-      yield
-      # break # running = false
-    when "quit"
-      exit!
-    else
-      back_or_quit
+      case input 
+      when "back"
+        yield
+        break 
+      when "quit"
+        exit!
+      end
     end
   end
+
 end
