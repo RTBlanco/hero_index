@@ -168,30 +168,33 @@ class HeroIndex::CLI
   end
 
   def back_or_quit(hero)
-    while true
-      puts "What would you like know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stonger (pits current hero verser another)\n#{@@line}\n  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
-      # puts "#{@@line}\n  (".colorize(:yellow)  + "back".colorize(:green) + ") To go back \n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program\n".colorize(:yellow)
-      input = gets.strip.downcase
-      case input 
-      when "back"
-        yield #if block_given?
-        break 
-      when "quit"
-        exit!
-      when "1"
-        main_info(hero)
-        break
-      when "2"
-        physical_traits(hero)
-        break
-      when "3"
-        show_pwr_lvls(hero)
-        break
-      when "4"
-        versus(hero)
-        break
-      end
+    puts "this is a test !!!"
+    # while true
+    puts "What would you like know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stonger (pits current hero verser another)\n#{@@line}\n  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
+    # puts "#{@@line}\n  (".colorize(:yellow)  + "back".colorize(:green) + ") To go back \n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program\n".colorize(:yellow)
+    input = gets.strip.downcase
+    case input 
+    when "back"
+      yield #if block_given?
+      # break 
+    when "quit"
+      exit!
+    when "1"
+      main_info(hero)
+      # break
+    when "2"
+      physical_traits(hero)
+      # break
+    when "3"
+      show_pwr_lvls(hero)
+      # break
+    when "4"
+      versus(hero)
+      # break
+    else
+      back_or_quit(hero) {run}
     end
+    # end
   end
 
 end
