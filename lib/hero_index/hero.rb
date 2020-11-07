@@ -44,6 +44,10 @@ class HeroIndex::Hero
     pronouns = self.appearance["gender"] == "Male" ? posibile_pronouns[0] : posibile_pronouns[1]
   end
 
+  def is_new?
+    self == self.class.all[-1] && self.class.all.count > 1
+  end
+
   def self.all
     @@all
   end
