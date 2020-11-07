@@ -5,9 +5,7 @@ class HeroIndex::Hero
   @@all = []
   def initialize(attri)
     attri.each do |key , value|
-      if self.class.method_defined?(key.downcase)          # unless key == "connections" || key == "image" || key == "work" 
-        # binding.pry
-        # self.class.attr_accessor(key)
+      if self.class.method_defined?(key.downcase)
         self.send("#{key.downcase}=", value)
       end
     end
@@ -41,6 +39,12 @@ class HeroIndex::Hero
     @biography = biography.each {|k,v| biography.delete(k) if v == "-" || v == "No alter egos found."}
   end
   
+  def gender_pronouns
+    posibile_pronouns = [["His","He"],["Her","She"]]
+    pronouns = self.appearance["gender"] == "Male" ? posibile_pronouns[0] : posibile_pronouns[1]
+  end
+
+
   def self.all
     @@all
   end
