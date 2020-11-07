@@ -1,5 +1,5 @@
 class HeroIndex::Hero 
-  attr_accessor :id, :name
+  attr_accessor :id, :name , :amount
   attr_reader :powerstats, :appearance, :biography
   
   @@all = []
@@ -9,6 +9,7 @@ class HeroIndex::Hero
         self.send("#{key.downcase}=", value)
       end
     end
+    @amount = 0
     @@all << self
   end
 
@@ -45,7 +46,7 @@ class HeroIndex::Hero
   end
 
   def is_new?
-    self == self.class.all[-1] && self.class.all.count > 1
+    self == self.class.all[-1] && self.amount == 0
   end
 
   def self.all
