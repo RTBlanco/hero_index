@@ -1,6 +1,6 @@
 class HeroIndex::Hero 
-  attr_accessor :biography, :id, :name
-  attr_reader :powerstats, :appearance
+  attr_accessor :id, :name
+  attr_reader :powerstats, :appearance, :biography
   
   @@all = []
   def initialize(attri)
@@ -37,6 +37,9 @@ class HeroIndex::Hero
     @appearance
   end
   
+  def biography=(biography)
+    @biography = biography.each {|k,v| biography.delete(k) if v == "-" || v == "No alter egos found."}
+  end
   
   def self.all
     @@all

@@ -7,5 +7,5 @@ test = HeroIndex::API.get_hero("70")
 
 # test2 = HeroIndex::API.get_hero("644")
 # test2.powerstats
-binding.pry 
+# binding.pry 
 HeroIndex::CLI.new.run

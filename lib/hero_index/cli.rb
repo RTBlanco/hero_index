@@ -1,6 +1,6 @@
 class HeroIndex::CLI
 
-
+  @@line = "-" * 53
   def run
     hero = hero_call
     hero_informaton(hero)
@@ -34,22 +34,20 @@ class HeroIndex::CLI
 
   def hero_informaton(hero)
     puts "what would you like know about ".colorize(:yellow) + hero.name.colorize(:green)
-    puts <<-DOC.colorize(:yellow)
-      (1) main information 
-      (2) physical traits
-      (3) Power levels
-      (4) Who is stonger (pits current hero verser another)
-      -----------------------------------------------------
-      (back) To go back 
-      (quit) To quit program
-      DOC
-    # running = true 
-    while true #running == true
+    puts "(".colorize(:yellow) + "1".colorize(:green) + ") main information
+      (".colorize(:yellow) + "2".colorize(:green) +") physical traits
+      (".colorize(:yellow) +"3".colorize(:green) + ") Power levels
+      (".colorize(:yellow) + "4".colorize(:green) + ") Who is stonger (pits current hero verser another)
+      #{@@line}
+      (".colorize(:yellow) + "back".colorize(:green) + ") To go back
+      (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
+     
+    while true
       input = gets.strip.downcase
 
       case input
       when "1"
-        # main_info
+        main_info(hero)
       when "2"
         physical_traits(hero)
       when "3"
@@ -141,42 +139,57 @@ class HeroIndex::CLI
 
 
   def show_pwr_lvls(hero)
+    puts ""
+    puts "#{hero.name}'s".colorize(:green) + " Powerlevels.".colorize(:yellow) 
     hero.powerstats.each do |k, v|
       puts "#{k}: " + v.to_s.colorize(:green)
     end
-    puts <<-DOC.gsub /^\s+/, ""
-      
-      -----------------------------------------------------
-    DOC
+    puts @@line.colorize(:yellow)
     # hero_informaton(hero)
     back_or_quit {hero_informaton(hero)}
   end  
 
   
   def physical_traits(hero)
+    puts ""
+    puts "#{hero.name}'s".colorize(:green) + " physical traits.".colorize(:yellow)
     hero.appearance.each do |k , v|
       if v.kind_of?(Array)
         # binding.pry
-        puts "#{k}: #{v[0]} or #{v[1]}"
+        puts "#{k}: " + "#{v[0]}".colorize(:green) + " or " + "#{v[1]}.".colorize(:green)
       else
-        puts "#{k}: #{v}"
+        puts "#{k}: " + "#{v}".colorize(:green)
       end
     end
-    puts "-----------------------------------------------------"
+    puts @@line.colorize(:yellow)
     back_or_quit {hero_informaton(hero)}
   end
 
 
+  def main_info(hero)
+    info = hero.biography 
+
+    if hero.name != info["full-name"]
+      puts "#{hero.name}'s ".colorize(:green) + "full name is " + "#{info["full-name"]}".colorize(:green) + "."
+    end
+    if info.include?("alter-egos")
+      puts "their Alter ego is "+ "#{info["alter-egos"]}".colorize(:green)+ "."
+    end
+    if info.include?("place-of-birth")
+      puts "They were born in " + "#{info["place-of-birth"]}".colorize(:green) + "."
+    end
+
+    puts "They were published by " + "#{info["publisher"]}".colorize(:green) + "."
+    puts "They are mostly know as a "+ "#{info["alignment"]} ".colorize(:green) + "character."
+    
+    puts @@line.colorize(:yellow)
+    back_or_quit {hero_informaton(hero)}
+  end
+
   def back_or_quit
     while true
-      puts <<-DOC.colorize(:yellow).gsub /^\s+/, ""
-      -----------------------------------------------------
-          (back) To go back 
-          (quit) To quit program
-      DOC
-      
+      puts "#{@@line}\n  (".colorize(:yellow)  + "back".colorize(:green) + ") To go back \n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
       input = gets.strip.downcase
-
       case input 
       when "back"
         yield
