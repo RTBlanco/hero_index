@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in hero_index.gemspec
 gemspec
 
-gem "rake", "~> 12.0"
-gem "rspec", "~> 3.0"
-gem "colorize", "~> 0.8"
-gem "pry"
+# "rake", "~> 12.0"
+# "rspec", "~> 3.0"
+# "colorize", "~> 0.8"
+# "pry"
