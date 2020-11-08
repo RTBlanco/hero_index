@@ -1,8 +1,6 @@
-# Hero-Index
+# Hero Index
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hero_index`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby gem is a CLI that allows the user to be able to see information about their favorite heros 
 
 ## Installation
 
@@ -21,8 +19,37 @@ Or install it yourself as:
     $ gem install hero_index
 
 ## Usage
+After proper installation of the gem, simply run:
+    
+    $ hero-index
 
-TODO: Write usage instructions here
+This will prompt you to choose to either search with and `ID` or a `Name`:
+
+    Search Hero by Name or hero ID?
+
+Once you have entered a hero this will prompt a menu with choices that lead to further information about the chosen hero
+
+    Search Hero by Name or hero ID?
+    $ name
+
+    Looking with name!
+    Please enter the name.
+    $ robin
+
+    Found Red Robin!
+    What would you like know about Red Robin
+        (1) Main Information
+        (2) Physical Traits
+        (3) Power Levels
+        (4) Who Is Stonger (pits current hero verser another)
+
+        -------------------------------------------------------
+        (back) To go back
+        (quit) To quit program
+    $ 1
+
+- Once you have made a selection and would like to make another you simply enter its corresponding number
+- You can close the CLI anytime by inputing `quit`
 
 ## Development
 
