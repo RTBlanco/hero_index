@@ -142,7 +142,7 @@ class HeroIndex::CLI
   end
 
   def hero_menu(hero)
-    menu_txt = "What would you like know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stonger (pits current hero verser another)\n".colorize(:yellow)
+    menu_txt = "What would you like to know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stronger (pits current hero verser another)\n".colorize(:yellow)
     sub_menu_txt = "  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
     
     if hero.is_new? 
