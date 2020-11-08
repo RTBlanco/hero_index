@@ -1,6 +1,6 @@
 # Hero Index
 
-This Ruby gem is a CLI that allows the user to be able to see information about their favorite heros and also be able to compare which hero is stonger.
+This Ruby gem is a CLI that allows the user to be able to see information about their favorite heroes and also be able to compare which hero is stronger.
 
 ## Installation
 
@@ -37,11 +37,11 @@ Once you have entered a hero this will prompt a menu with choices that lead to f
     $ robin
 
     Found Red Robin!
-    What would you like know about Red Robin
+    What would you like to know about Red Robin
         (1) Main Information
         (2) Physical Traits
         (3) Power Levels
-        (4) Who Is Stonger (pits current hero verser another)
+        (4) Who Is Stronger (pits current hero verser another)
 
         -------------------------------------------------------
         (back) To go back
@@ -49,7 +49,7 @@ Once you have entered a hero this will prompt a menu with choices that lead to f
     $ 1
 
 - Once you have made a selection and would like to make another you simply enter its corresponding number
-- You can close the CLI anytime by inputing `quit`
+- You can close the CLI anytime by inputting `quit`
 
 ## Contributing
 
@@ -62,4 +62,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the HeroIndex project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/hero_index/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the HeroIndex project's codebases, issue trackers, chat rooms, and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/hero_index/blob/master/CODE_OF_CONDUCT.md).
