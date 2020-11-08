@@ -1,6 +1,6 @@
 # Hero Index
 
-This Ruby gem is a CLI that allows the user to be able to see information about their favorite heros 
+This Ruby gem is a CLI that allows the user to be able to see information about their favorite heros and also be able to compare which hero is stonger.
 
 ## Installation
 
