@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["RTBlanco"]
   spec.email         = ["ronnytoribio1@hotmail.com"]
 
-  spec.summary       = %q{ Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{ Write a longer description or delete this line.}
+  spec.summary       = %q{ This Ruby gem is a CLI that allows the user to be able to see information about their favorite heros.}
+  spec.description   = %q{ This Ruby gem is a CLI that allows the user to be able to see information about their favorite heros.}
   spec.homepage      = "https://github.com/RTBlanco/hero_index"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
