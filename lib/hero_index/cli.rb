@@ -32,13 +32,28 @@ class HeroIndex::CLI
     
     while true 
       name = gets.strip
-      exit! if name == "quit"
-      if hero = HeroIndex::API.get_hero(name)
+
+      if name == "quit"
+        !exit
+      elsif name.downcase == "back"
+        run 
+      end
+        
+
+      if HeroIndex::Hero.find_hero_name(name).nil?
+
+        if hero = HeroIndex::API.get_hero(name)
+          puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green) + "!".colorize(:yellow)
+          return hero
+          break
+        else
+          puts "Hero not found, Try again!".colorize(:red)
+        end
+      else
+        hero = HeroIndex::Hero.find_hero_name(name)
         puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green) + "!".colorize(:yellow)
         return hero
         break
-      else
-        puts "Hero not found, Try again!".colorize(:red)
       end
     end
   end
@@ -47,21 +62,35 @@ class HeroIndex::CLI
   def look_id
     puts "\nLooking with ID!\nPlease enter ID.".colorize(:yellow)
 
-    id = nil
+    
     amount = 0 
-    while id.to_i == 0 || id.to_i > 731
-      exit! if id == "quit"
-      puts amount == 0 ? "Must be a numer (1-731).".colorize(:yellow) : "Must be a numer (1-731)!".colorize(:red)
+    while true 
+      puts amount == 0 ? "Must be a numer (1-732).".colorize(:yellow) : "Must be a numer (1-732)!".colorize(:red)
       id = gets.strip
+      
+      if id == "quit"
+        !exit
+      elsif id.downcase == "back"
+        run 
+      end
+      
       amount += 1
       
-    end
-
-    if hero = HeroIndex::API.get_hero(id)
-      puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green)+ "!".colorize(:yellow)
-      return hero
-    else
-      puts "Hero not found!".colorize(:red)
+      if HeroIndex::Hero.find_hero_id(id).nil? 
+        if id != "0" && hero = HeroIndex::API.get_hero(id)
+          puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green)+ "!".colorize(:yellow)
+          return hero
+          break
+        else
+          puts "Hero not found!".colorize(:red)
+        end
+      else
+        hero = HeroIndex::Hero.find_hero_id(id)
+        puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green)+ "!".colorize(:yellow)
+        binding.pry
+        return hero
+        break
+      end
     end
   end
 
@@ -144,22 +173,15 @@ class HeroIndex::CLI
   def hero_menu(hero)
     menu_txt = "What would you like to know about ".colorize(:yellow) + hero.name.colorize(:green) +"\n  (".colorize(:yellow) + "1".colorize(:green) + ") Main Information\n  (".colorize(:yellow) + "2".colorize(:green) +") Physical Traits\n  (".colorize(:yellow) +"3".colorize(:green) + ") Power Levels\n  (".colorize(:yellow) + "4".colorize(:green) + ") Who Is Stronger (pits current hero verser another)\n".colorize(:yellow)
     sub_menu_txt = "  (".colorize(:yellow) + "back".colorize(:green) + ") To go back\n  (".colorize(:yellow) + "quit".colorize(:green) + ") To quit program".colorize(:yellow)
-    
-    if hero.is_new? 
-      puts menu_txt
-      puts "#{@@line}\n#{@@line}\n#{sub_menu_txt}"
-      hero.amount += 1
-    else
-      puts "#{@@line}\n  (".colorize(:yellow) + "Menu".colorize(:green) + ") To go show Menu \n".colorize(:yellow) + "#{sub_menu_txt}\n"
-    end
+     
+    puts menu_txt
+    puts "#{@@line}\n#{@@line}\n#{sub_menu_txt}\n"
 
     while true
       input = gets.strip.downcase
+      
       case input  
 
-      when "menu"
-        puts "\n#{menu_txt}"
-        puts "#{@@line}\n#{@@line}\n#{sub_menu_txt}"  
       when "back"
         yield
         break 
@@ -178,6 +200,7 @@ class HeroIndex::CLI
         versus(hero)
         break
       else
+        puts "Selection not available! Please select from the menu.\n".colorize(:red)
         hero_menu(hero) {run}
       end
     end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hero_index (0.1.0)
+    hero_index (0.1.pre.alpha)
       colorize (~> 0.8)
 
 GEM

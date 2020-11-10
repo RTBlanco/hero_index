@@ -1,5 +1,5 @@
 class HeroIndex::Hero 
-  attr_accessor :id, :name , :amount
+  attr_accessor :id, :name
   attr_reader :powerstats, :appearance, :biography
   
   @@all = []
@@ -9,7 +9,6 @@ class HeroIndex::Hero
         self.send("#{key.downcase}=", value)
       end
     end
-    @amount = 0
     @@all << self
   end
 
@@ -45,10 +44,6 @@ class HeroIndex::Hero
     pronouns = self.appearance["gender"] == "Male" ? posibile_pronouns[0] : posibile_pronouns[1]
   end
 
-  def is_new?
-    self == self.class.all[-1] && self.amount == 0
-  end
-
   def self.all
     @@all
   end
@@ -57,6 +52,13 @@ class HeroIndex::Hero
     self.all.count >=2 ? self.all[-2] : self.all[0]
   end
 
+  def self.find_hero_name(name)
+    self.all.find {|hero| hero.name.downcase == name}
+  end
+
+  def self.find_hero_id(id)
+    self.all.find {|hero| hero.id == id}
+  end
 
 end
 
