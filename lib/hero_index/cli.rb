@@ -32,7 +32,13 @@ class HeroIndex::CLI
     
     while true 
       name = gets.strip
-      exit! if name == "quit"
+
+      if name == "quit"
+        !exit
+      elsif name.downcase == "back"
+        run 
+      end
+        
 
       if HeroIndex::Hero.find_hero_name(name).nil?
 
@@ -61,7 +67,13 @@ class HeroIndex::CLI
     while true 
       puts amount == 0 ? "Must be a numer (1-732).".colorize(:yellow) : "Must be a numer (1-732)!".colorize(:red)
       id = gets.strip
-      exit! if id == "quit"
+      
+      if id == "quit"
+        !exit
+      elsif id.downcase == "back"
+        run 
+      end
+      
       amount += 1
       
       if HeroIndex::Hero.find_hero_id(id).nil? 
