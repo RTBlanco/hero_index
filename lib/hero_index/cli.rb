@@ -40,9 +40,10 @@ class HeroIndex::CLI
       end
         
 
-      if HeroIndex::Hero.find_hero_name(name).nil?
 
-        if hero = HeroIndex::API.get_hero(name)
+      if HeroIndex::Hero.find_hero_name(name).nil? 
+
+        if self.class.valid_name(name) && hero = HeroIndex::API.get_hero(name)
           puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green) + "!".colorize(:yellow)
           return hero
           break
@@ -87,7 +88,6 @@ class HeroIndex::CLI
       else
         hero = HeroIndex::Hero.find_hero_id(id)
         puts "\nFound ".colorize(:yellow) + hero.name.colorize(:green)+ "!".colorize(:yellow)
-        binding.pry
         return hero
         break
       end
@@ -204,6 +204,10 @@ class HeroIndex::CLI
         hero_menu(hero) {run}
       end
     end
+  end
+
+  def self.valid_name(name)
+    !(name =~ /{|}|\[|\]|'|"|\\|%|\^|\*|\(|\)|&|\$|#|@|!|_|\+|=/) && name.split("")[0] != "-"
   end
 
 end

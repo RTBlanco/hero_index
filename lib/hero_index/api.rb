@@ -29,4 +29,3 @@ class HeroIndex::API
     end
   end
 end
-
